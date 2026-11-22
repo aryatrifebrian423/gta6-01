@@ -1,0 +1,39 @@
+[
+  {
+    "file": "1-chase.jpg",
+    "url": "?shot=chase",
+    "width": 1280,
+    "height": 720,
+    "quality": 97,
+    "cover": true,
+    "caption": "High Water · citywide search on the marina road",
+    "visibleChecks": ["CHAPTER 10", "Escape the city", "★★★", "HEALTH 74"]
+  },
+  {
+    "file": "2-driving.jpg",
+    "url": "?shot=driving",
+    "width": 1280,
+    "height": 720,
+    "quality": 97,
+    "caption": "Avenue run · civilian traffic through Sunward Bay",
+    "visibleChecks": ["KM/H", "MISSIONS", "COINS"]
+  },
+  {
+    "file": "3-onfoot.jpg",
+    "url": "?shot=onfoot",
+    "width": 1280,
+    "height": 720,
+    "quality": 97,
+    "caption": "Civic Sun · Rook on foot among local walkers",
+    "visibleChecks": ["ON FOOT", "MISSIONS", "Civic Sun"]
+  },
+  {
+    "file": "4-mission.jpg",
+    "url": "?shot=mission",
+    "width": 1280,
+    "height": 720,
+    "quality": 97,
+    "caption": "Hot Package · parcel route to Luna Pier",
+    "visibleChecks": ["Deliver the parcel", "MISSIONS", "COINS"]
+  }
+]
