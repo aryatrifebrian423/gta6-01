@@ -1,0 +1,10 @@
+import {makePerson} from './city.js';
+const CREW_COLORS=[0x753e45,0x69485d,0x48495b,0x9a6249];
+const CREW_POSITIONS=[{x:27,z:5},{x:31,z:5},{x:27,z:10},{x:31,z:10}];
+export function makeCrew(scene){return CREW_POSITIONS.map((position,index)=>{const mesh=makePerson(CREW_COLORS[index]);mesh.position.set(position.x,0,position.z);mesh.visible=false;scene.add(mesh);return {mesh,alive:true,index,health:1,alert:false,attackCooldown:0}})}
+export function exposeCrew(crew){for(const member of crew){member.alive=true;member.health=1;member.alert=true;member.mesh.visible=true}return crew.length}
+export function hideCrew(crew){for(const member of crew){member.alive=true;member.health=1;member.alert=false;member.mesh.visible=false}}
+export function fireShot(player,crew){const candidates=crew.filter(member=>member.alive&&member.mesh.visible).map(member=>({member,distance:Math.hypot(member.mesh.position.x-player.x,member.mesh.position.z-player.z)})).sort((a,b)=>a.distance-b.distance);const target=candidates[0];if(!target)return false;const dx=Math.sin(player.yaw),dz=Math.cos(player.yaw),tx=target.member.mesh.position.x-player.x,tz=target.member.mesh.position.z-player.z,length=Math.max(target.distance,.1),forward=(dx*tx+dz*tz)/length;if(target.distance>12||forward<.73)return false;target.member.health-=1;if(target.member.health<=0){target.member.alive=false;target.member.mesh.visible=false}return true}
+export function crewAttack(crew,player,dt){let damage=0;for(const member of crew){if(!member.alive||!member.mesh.visible)continue;member.attackCooldown=Math.max(0,member.attackCooldown-dt);const dx=player.x-member.mesh.position.x,dz=player.z-member.mesh.position.z,length=Math.hypot(dx,dz)||1;if(length<2.6&&member.attackCooldown===0){member.attackCooldown=1.1;damage+=9}member.mesh.rotation.y=Math.atan2(dx,dz)}return damage}
+export function crewStatus(crew){const standing=crew.filter(member=>member.alive&&member.mesh.visible).length;return {standing,total:crew.length,cleared:standing===0,label:`CREW ${crew.length-standing}/${crew.length} CLEARED`}}
+// Shots require a visible, nearby target inside the player's forward cone; range alone is insufficient.
